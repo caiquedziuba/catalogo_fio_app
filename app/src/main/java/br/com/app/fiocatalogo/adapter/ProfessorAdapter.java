@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import br.com.app.fiocatalogo.R;
+import br.com.app.fiocatalogo.dao.CursoDAO;
 import br.com.app.fiocatalogo.domain.CursoDTO;
 import br.com.app.fiocatalogo.domain.ProfessorDTO;
 
@@ -46,7 +47,10 @@ public class ProfessorAdapter extends BaseAdapter {
 
         if(professor != null){
             TextView txt_professor_name = (TextView) view.findViewById(R.id.txt_professor_nome);
-            txt_professor_name.setText("Prof. ".concat(professor.getNome()));
+            txt_professor_name.setText(professor.getNome());
+
+            TextView txt_professor_curso = (TextView) view.findViewById(R.id.txt_professor_curso);
+            txt_professor_curso.setText(professor.getCurso());
 
 //            ImageView iv_professor_foto = (ImageView) view.findViewById(R.id.iv_professor_foto);
 //            int id = c.getResources().getIdentifier(professor.getFoto().replace(".png", ""), "mipmap", c.getPackageName());

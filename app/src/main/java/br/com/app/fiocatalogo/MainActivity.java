@@ -23,6 +23,7 @@ import java.util.List;
 
 import br.com.app.fiocatalogo.adapter.CursoAdapter;
 import br.com.app.fiocatalogo.dao.CursoDAO;
+import br.com.app.fiocatalogo.dao.ProfessoresDAO;
 import br.com.app.fiocatalogo.domain.CursoDTO;
 import br.com.app.fiocatalogo.domain.ProfessorDTO;
 
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity
     private List<CursoDTO> listaCursos;
     private CursoAdapter adapter;
     private CursoDAO cursoDAO;
+    private ProfessoresDAO professoresDAO;
     private CardView cv_facul;
 
     @Override
@@ -40,7 +42,9 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         cursoDAO = new CursoDAO(this);
+        professoresDAO = new ProfessoresDAO(this);
 
+//        geraProfessores();
 //        geraCursos();
 
         listaCursos = populaCursos();
@@ -62,13 +66,40 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+
+    private void geraProfessores() {
+        ProfessorDTO professor = new ProfessorDTO();
+        professor.setNome("Me. Adriano Aranão");
+        professor.setEmail("adriano@fio.com.br");
+
+        professoresDAO.salvar(professor);
+
+        ProfessorDTO professor2 = new ProfessorDTO();
+        professor2.setNome("Dr. Claudinei Paulo de Lima");
+        professor2.setEmail("claudinei@fio.com.br");
+
+        professoresDAO.salvar(professor2);
+
+        ProfessorDTO professor3 = new ProfessorDTO();
+        professor3.setNome("Drª Paula Ione C. Q. Fiochi");
+        professor3.setEmail("paula@fio.com.br");
+
+        professoresDAO.salvar(professor3);
+
+        ProfessorDTO professor4 = new ProfessorDTO();
+        professor4.setNome("Mestre Sérgio Roberto Delfino");
+        professor4.setEmail("sergio@fio.com.br");
+
+        professoresDAO.salvar(professor4);
+    }
     private void geraCursos() {
+        ProfessoresDAO professoresDAO = new ProfessoresDAO(this);
 
         CursoDTO curso = new CursoDTO();
         curso.setTitulo("Direito");
         curso.setSubTitulo("Direito nas Fio");
         curso.setTempo("5 anos ou 10 semestres");
-        curso.setCoordenador(new ProfessorDTO(1, "Me. Adriano Aranão"));
+        curso.setCoordenador(professoresDAO.getObject(1));
         curso.setDescricao("O curso oferece uma formação que capacita o profissional para a solução de problemas do mundo real, por meio da construção de modelos computacionais, da utilização da Tecnologia da Informação e de sua efetiva implementação para dar suporte à tomada de decisões nas organizações.");
         curso.setPalavraCoordenador("O Curso de Sistemas de Informação é uma junção de administração com computação. O profissional não precisa necessariamente trabalhar com a parte técnica, pode trabalhar liderando equipes'");
         curso.setValor(951.45);
@@ -80,7 +111,7 @@ public class MainActivity extends AppCompatActivity
         curso2.setTitulo("Agronomia");
         curso2.setSubTitulo("Agronomia nas Fio");
         curso2.setTempo("4 anos ou 8 semestres");
-        curso2.setCoordenador(new ProfessorDTO(2, "Dr. Claudinei Paulo de Lima"));
+        curso2.setCoordenador(professoresDAO.getObject(2));
         curso2.setDescricao("O curso oferece uma formação que capacita o profissional para a solução de problemas do mundo real, por meio da construção de modelos computacionais, da utilização da Tecnologia da Informação e de sua efetiva implementação para dar suporte à tomada de decisões nas organizações.");
         curso2.setPalavraCoordenador("O Curso de Sistemas de Informação é uma junção de administração com computação. O profissional não precisa necessariamente trabalhar com a parte técnica, pode trabalhar liderando equipes'");
         curso2.setValor(1130.70);
@@ -92,7 +123,7 @@ public class MainActivity extends AppCompatActivity
         curso3.setTitulo("Psicologia");
         curso3.setSubTitulo("Psicologia nas Fio");
         curso3.setTempo("4 anos ou 8 semestres");
-        curso3.setCoordenador(new ProfessorDTO(3, "Drª Paula Ione C. Q. Fiochi"));
+        curso3.setCoordenador(professoresDAO.getObject(3));
         curso3.setDescricao("O curso oferece uma formação que capacita o profissional para a solução de problemas do mundo real, por meio da construção de modelos computacionais, da utilização da Tecnologia da Informação e de sua efetiva implementação para dar suporte à tomada de decisões nas organizações.");
         curso3.setPalavraCoordenador("O Curso de Sistemas de Informação é uma junção de administração com computação. O profissional não precisa necessariamente trabalhar com a parte técnica, pode trabalhar liderando equipes'");
         curso3.setValor(1041.60);
@@ -104,7 +135,7 @@ public class MainActivity extends AppCompatActivity
         curso4.setTitulo("Sistema de Informação");
         curso4.setSubTitulo("Sistema de Informação nas Fio");
         curso4.setTempo("4 anos ou 8 semestres");
-        curso4.setCoordenador(new ProfessorDTO(4, "Mestre Sérgio Roberto Delfino"));
+        curso4.setCoordenador(professoresDAO.getObject(4));
         curso4.setDescricao("O curso oferece uma formação que capacita o profissional para a solução de problemas do mundo real, por meio da construção de modelos computacionais, da utilização da Tecnologia da Informação e de sua efetiva implementação para dar suporte à tomada de decisões nas organizações.");
         curso4.setPalavraCoordenador("O Curso de Sistemas de Informação é uma junção de administração com computação. O profissional não precisa necessariamente trabalhar com a parte técnica, pode trabalhar liderando equipes'");
         curso4.setValor(623.90);
@@ -128,6 +159,9 @@ public class MainActivity extends AppCompatActivity
             }
         });
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            toolbar.setLogo(R.drawable.logo_fio);
+        }
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

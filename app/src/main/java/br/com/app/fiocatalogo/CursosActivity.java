@@ -57,6 +57,16 @@ public class CursosActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        if (toolbar != null) {
+            toolbar.setNavigationIcon(R.drawable.ic_arrow_left_white_24dp);
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onBackPressed();
+                }
+            });
+        }
+
         super.onStart();
     }
 }

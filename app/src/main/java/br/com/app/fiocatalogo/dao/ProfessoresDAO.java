@@ -26,6 +26,7 @@ public class ProfessoresDAO {
     public long salvar(ProfessorDTO obj) {
         ContentValues values = new ContentValues();
         values.put(columns[1], obj.getNome());
+        values.put(columns[2], obj.getEmail());
 
         try {
             long id = database.insert(SqliteDatabaseHelper.DATASE_TABLE_PROFESSOR, null, values);
@@ -41,6 +42,7 @@ public class ProfessoresDAO {
     public void update(ProfessorDTO obj) {
         ContentValues values = new ContentValues();
         values.put(columns[1], obj.getNome());
+        values.put(columns[2], obj.getEmail());
 
         try {
             database.update(SqliteDatabaseHelper.DATASE_TABLE_PROFESSOR, values, "id=?", new String[]{String.valueOf(obj.get_id())});
@@ -69,6 +71,10 @@ public class ProfessoresDAO {
             if(cursor.moveToFirst()){
                 professor.set_id(cursor.getInt(cursor.getColumnIndex(columns[0])));
                 professor.setNome(cursor.getString(cursor.getColumnIndex(columns[1])));
+                professor.setEmail(cursor.getString(cursor.getColumnIndex(columns[2])));
+
+                String nomeCurso = new CursoDAO(context).getCursoForCoordenador(professor.get_id());
+                professor.setCurso(nomeCurso);
             }
         } catch (Exception e){
             Log.v("SQLITE", "Erro ao buscar todos os registros");
@@ -92,6 +98,10 @@ public class ProfessoresDAO {
 
                 professor.set_id(cursor.getInt(cursor.getColumnIndex(columns[0])));
                 professor.setNome(cursor.getString(cursor.getColumnIndex(columns[1])));
+                professor.setEmail(cursor.getString(cursor.getColumnIndex(columns[2])));
+
+                String nomeCurso = new CursoDAO(context).getCursoForCoordenador(professor.get_id());
+                professor.setCurso(nomeCurso);
 
                 listaProfessores.add(professor);
             }

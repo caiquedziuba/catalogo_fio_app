@@ -21,8 +21,8 @@ public class CursoDAO {
 
     public CursoDAO(Context context) {
         this.context = context;
-        this.database = new SqliteDatabaseHelper(context).getWritableDatabase();
         this.professoresDAO = new ProfessoresDAO(context);
+        this.database = new SqliteDatabaseHelper(context).getWritableDatabase();
     }
 
     public long salvar(CursoDTO obj) {
@@ -145,5 +145,26 @@ public class CursoDAO {
         }
 
         return listaCursos;
+    }
+
+    public String getCursoForCoordenador(long idCoordenador) {
+        String nomeCurso = "";
+        Cursor cursor = null;
+        try{
+            cursor = database.query(SqliteDatabaseHelper.DATASE_TABLE_CURSO, columns, columns[5].concat(" = ?"), new String[]{String.valueOf(idCoordenador)}, null, null, null, "1");
+
+            if(cursor.moveToFirst()){
+                nomeCurso = cursor.getString(cursor.getColumnIndex(columns[1]));
+            }
+
+        } catch (Exception e){
+            Log.v("SQLITE", "Erro ao buscar todos os registros" + e.getMessage());
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+
+        return nomeCurso;
     }
 }

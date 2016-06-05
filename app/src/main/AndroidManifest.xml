@@ -21,19 +21,27 @@
         <activity
             android:name=".CursosActivity"
             android:label="@string/activity_cursos"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".MainActivity"
+            />
         <activity
             android:name=".FaculdadeActivity"
             android:label="@string/title_activity_faculdade"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".MainActivity"
+            />
         <activity
             android:name=".CursoDetalhesActivity"
             android:label="@string/title_activity_curso_detalhes"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".MainActivity"
+            />
         <activity
             android:name=".ProfessoresActivity"
             android:label="@string/title_activity_professores"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".MainActivity"
+            />
     </application>
 
 </manifest>

@@ -10,8 +10,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class SqliteDatabaseHelper extends SQLiteOpenHelper {
     public static final String TAG = "SQLITE";
 
-    public static final String DATABASE_NAME = "db_catalogo";
-    public static final int DATABASE_VERSION = 45;
+    public static final String DATABASE_NAME = "db_catalogofio";
+    public static final int DATABASE_VERSION = 3;
 
     public static final String DATASE_TABLE_FACUL = "faculdade";
     public static final String DATASE_TABLE_CURSO = "curso";
@@ -63,7 +63,8 @@ public class SqliteDatabaseHelper extends SQLiteOpenHelper {
         StringBuilder table_professor = new StringBuilder();
         table_professor.append("create table if not exists " + DATASE_TABLE_PROFESSOR);
         table_professor.append("(_id integer not null primary key autoincrement,");
-        table_professor.append("nome text not null);");
+        table_professor.append("nome text not null,");
+        table_professor.append("email text not null);");
 
         try {
             db.execSQL(table_facul.toString());
@@ -77,7 +78,7 @@ public class SqliteDatabaseHelper extends SQLiteOpenHelper {
             sb.append("(nome, cep, cnpj, cidade, telefone)");
             sb.append("values");
             sb.append("('Faculdade Integradas de Ourinhos',");
-            sb.append("'18950',");
+            sb.append("'18950-000',");
             sb.append("'12831236594',");
             sb.append("'Ourinhos',");
             sb.append("'0800 770 8788');");
